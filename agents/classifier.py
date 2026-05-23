@@ -14,11 +14,11 @@ def create_classifier_agent(llm):
 
 def classify_node_function(state: dict, llm) -> dict:
      
-    classify_chain = create_classifier_agent(llm)
+    classifier_chain = create_classifier_agent(llm)
      
     try:
-        classify_result = classify_chain.invoke({"messages": state.get("messages", [])})
+        classifier_result = classifier_chain.invoke({"messages": state.get("messages", [])})
     except Exception as e:
-        classify_result = f"Classification failed: {str(e)}"
+        classifier_result = f"Classification failed: {str(e)}"
     
-    return {"detected_tasks": classify_result} 
+    return {"detected_tasks": classifier_result} 
