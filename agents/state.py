@@ -1,4 +1,5 @@
 from typing import TypedDict, Annotated
+from langchain_core.messages import BaseMessage, add_messages
 
 
 
@@ -9,8 +10,7 @@ def dedup_add(a: list, b: list) -> list:
 class AcademicState(TypedDict):
 
     # --- INPUT ---
-    user_message: str
-    chat_history: list[dict]
+    messages: Annotated[list[BaseMessage], add_messages]
     detected_tasks: list[str]
 
     # --- RESEARCH ---
