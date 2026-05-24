@@ -32,12 +32,12 @@ def researcher_node_function(state: dict, llm) -> dict:
     
     
 def route_tasks_researcher(state):
-    return [Send(f"{t}_agent", 
+    return [Send(f"{t}", 
                  {
-                    "message": state["message"],
-                    "context": state["context"],
-                    "sources": state["sources"],
+                    "message": state.get("messages",[]),
+                    "context": state.get("context",""),
+                    "sources": state.get("sources",[]),
                     "validation_notes": state.get("validation_notes", {}).get(t, ""),
-                    "detected_tasks": state["detected_tasks"],
-                     }) 
+                    "detected_tasks": state.get("detected_tasks",[]),
+                }) 
             for t in state["detected_tasks"]]

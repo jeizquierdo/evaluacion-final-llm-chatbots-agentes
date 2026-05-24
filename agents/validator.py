@@ -30,20 +30,27 @@ def validator_node_function(state: dict, llm) -> dict:
     except Exception as e:
         validator_result = f"Validation failed: {str(e)}"
     
+    counts = dict(state.get("retry_counts", {}))
+    for t in validator_result.get("failed_tasks", []):
+        counts[t] = counts.get(t, 0) + 1
+    
     return {
             "validation_status": validator_result["validation_status"],
             "validation_notes": validator_result["validation_notes"],
-            "failed_tasks": validator_result["failed_tasks"]
+            "failed_tasks": validator_result["failed_tasks"],
+            "retry_counts": counts
     }
 
 
-def route_tasks_researcher(state):
-    return [Send(f"{t}_agent", 
-                 {
-                    "message": state["message"],
-                    "context": state["context"],
-                    "sources": state["sources"],
-                    "validation_notes": state.get("validation_notes", {}).get(t, ""),
-                    "detected_tasks": state["detected_tasks"],
-                     })  
-            for t in state["failed_tasks"]] 
+def route_tasks_validator(state):
+    if state.get("validation_status") == "retry":
+        return [Send(f"{t}_agent", 
+                    {
+                        "message": state.get("messages",[]),
+                        "context": state.get("context",""),
+                        "sources": state.get("sources",[]),
+                        "validation_notes": state.get("validation_notes", {}).get(t, ""),
+                        "detected_tasks": state["detected_tasks"],
+                    })  
+                for t in state["failed_tasks"] if state.get("retry_counts", {}).get(t, 0) < config.max_retries] 
+    else: return "finalize" 
