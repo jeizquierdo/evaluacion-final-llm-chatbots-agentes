@@ -13,7 +13,6 @@ def create_explainer_agent(llm):
 def explainer_node_function(state: dict, llm) -> dict:
      
     explainer_chain = create_explainer_agent(llm)
-     
     try:
         explainer_result = explainer_chain.invoke({
             "messages": state.get("messages", []),

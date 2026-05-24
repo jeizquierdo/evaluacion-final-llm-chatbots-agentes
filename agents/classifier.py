@@ -7,7 +7,7 @@ def create_classifier_agent(llm):
     
     classifier_prompt = load_prompt("prompts/classifier_prompt.txt",["messages"], config.file_encoding)
     
-    classifier_chain =classifier_prompt | llm | StrOutputParser()
+    classifier_chain = classifier_prompt | llm | StrOutputParser()
     
     return classifier_chain
 
