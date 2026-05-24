@@ -39,7 +39,7 @@ Evalúa cada output presente en el estado según estos criterios:
 1. Lee cada output presente en el estado (plan, explanation, summary). Ignora los que sean null.
 2. Evalúa cada uno contra los criterios generales y específicos correspondientes.
 3. Registra el resultado de cada tarea en validation_notes con una nota breve.
-4. Si todos los outputs pasan → validation_status = "ok".
+4. Si todos los outputs pasan → validation_status = "ok" y failed_tasks = [].
 5. Si alguno falla y su retry_count no alcanzó el límite (3 intentos) → validation_status = "retry" y agrégalo a failed_tasks.
 6. Si alguno falla pero ya alcanzó el límite de reintentos → validation_status = "forced_ok".
 7. Si hay múltiples outputs fallidos, evalúa el límite de reintentos individualmente para cada uno.
