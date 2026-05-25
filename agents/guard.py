@@ -1,3 +1,11 @@
+"""agents.guard
+
+Guard node: lightweight pre-filter that detects greetings or social messages
+that don't require the full academic pipeline. Provides routing helpers used
+by the LangGraph graph to decide whether to short-circuit to the finalizer
+or continue to the classifier.
+"""
+
 import re
 
 # Pattern to detect greetings and social messages that don't require

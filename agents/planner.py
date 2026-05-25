@@ -1,3 +1,10 @@
+"""agents.planner
+
+Planner agent: builds a planning chain that can call tools (Wikipedia,
+date helpers) to build a study plan. Exposes `planner_node_function` and
+internal helpers to run tool loops and process tool-invoking LLMs.
+"""
+
 from utils.config import settings as config
 from utils.utils import load_prompt
 from langchain_core.messages import AIMessage, ToolMessage

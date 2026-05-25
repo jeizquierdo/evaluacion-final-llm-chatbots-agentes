@@ -1,3 +1,13 @@
+"""agents.validator
+
+Validator agent: evaluates other agents' outputs using objective text-analysis
+tools (section counts, quality metrics) and returns a JSON verdict indicating
+whether outputs should be accepted, retried, or force-approved.
+
+Exposes `validator_node_function` and helpers to run tool-calling chains and
+interpret the validator's JSON verdict safely.
+"""
+
 from utils.config import settings as config
 from utils.utils import load_prompt
 from langchain_core.messages import AIMessage, ToolMessage

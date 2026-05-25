@@ -1,3 +1,11 @@
+"""agents.finalize
+
+Finalizer agent: composes the final_response by combining outputs from other
+agents (explanation, summary, plan, sources) and formatting the assistant's
+final reply. Exposes `finalizer_node_function` and a helper to create the
+finalizer chain.
+"""
+
 from utils.config import settings as config
 from utils.utils import load_prompt
 from langchain_core.output_parsers import StrOutputParser

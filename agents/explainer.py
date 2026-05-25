@@ -1,3 +1,11 @@
+"""agents.explainer
+
+Explainer agent: creates an explanation chain that produces a structured
+explanation of the requested concept using context and sources gathered by
+the researcher. The module exposes `explainer_node_function` and a helper
+to construct the explainer LLM chain.
+"""
+
 from utils.config import settings as config
 from utils.utils import load_prompt
 from langchain_core.output_parsers import StrOutputParser

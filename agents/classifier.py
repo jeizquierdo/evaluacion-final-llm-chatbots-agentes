@@ -1,3 +1,14 @@
+"""agents.classifier
+
+Classifier agent implementation: builds the classifier chain, executes any
+requested tool calls (date helpers), and parses the model's JSON output into
+the list of detected academic tasks.
+
+This module exposes a LangGraph-compatible node function `classify_node_function`
+and helper functions used internally to run tool loops and safely parse model
+responses.
+"""
+
 from utils.config import settings as config
 from utils.utils import load_prompt
 from langchain_core.messages import AIMessage, ToolMessage

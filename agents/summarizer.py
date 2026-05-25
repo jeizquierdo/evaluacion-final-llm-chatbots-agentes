@@ -1,3 +1,10 @@
+"""agents.summarizer
+
+Summarizer agent: produces structured summaries from the researcher's
+context. Exposes `summarizer_node_function` and a helper to create the
+LLM summarization chain.
+"""
+
 from utils.config import settings as config
 from utils.utils import load_prompt
 from langchain_core.output_parsers import StrOutputParser

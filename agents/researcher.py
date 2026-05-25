@@ -1,3 +1,11 @@
+"""agents.researcher
+
+Researcher agent: performs web and knowledge-base lookups (web search,
+Wikipedia, RAG) to gather context and sources for a user's query. The
+module exposes a node function and helpers to execute tool-calling LLMs
+and parse their JSON outputs safely.
+"""
+
 from utils.config import settings as config
 from utils.utils import load_prompt
 from langchain_core.messages import AIMessage, ToolMessage

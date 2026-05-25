@@ -1,3 +1,17 @@
+"""agents.state
+
+Typed definitions for the shared AcademicState used across the agent graph.
+
+AcademicState is a TypedDict that documents the keys the LangGraph nodes
+read and write during a run: messages, detected tasks, context, sources,
+task outputs (plan, explanation, summary), validation metadata and the
+final_response.
+
+This module intentionally keeps typing lightweight and uses helper
+annotations (add_messages, dedup_add) to instruct reducers how to merge
+lists in the graph runtime.
+"""
+
 from typing import TypedDict, Annotated
 from langchain_core.messages import BaseMessage
 from langgraph.graph.message import add_messages
