@@ -190,9 +190,9 @@ def route_tasks_validator(state):
     if state.get("validation_status") == "retry":
         return [
             Send(
-                f"{t}_agent",
+                f"{t}",
                 {
-                    "message":          state.get("messages", []),
+                    "messages":          state.get("messages", []),
                     "context":          state.get("context", ""),
                     "sources":          state.get("sources", []),
                     "validation_notes": state.get("validation_notes", {}).get(t, ""),

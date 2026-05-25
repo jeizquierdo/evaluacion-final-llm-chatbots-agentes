@@ -130,5 +130,5 @@ def planner_node_function(state: dict, llm) -> dict:
 
     return {
         "plan": planner_result,
-        "completed_tasks": ["plan"],
+        "completed_tasks": ["plannify"],
     }
