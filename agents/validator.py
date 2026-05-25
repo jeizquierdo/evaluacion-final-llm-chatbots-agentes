@@ -1,4 +1,4 @@
-from utils.config import config
+import utils.config as config
 from utils.utils import load_prompt
 from langchain_core.messages import AIMessage, ToolMessage
 from langgraph.types import Send
@@ -203,4 +203,4 @@ def route_tasks_validator(state):
             if state.get("retry_counts", {}).get(t, 0) < config.max_retries
         ]
     else:
-        return "finalize"
+        return "finalizer"

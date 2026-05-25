@@ -1,4 +1,4 @@
-from utils.config import config
+import utils.config as config
 from utils.utils import load_prompt
 from langchain_core.messages import AIMessage, ToolMessage
 import json

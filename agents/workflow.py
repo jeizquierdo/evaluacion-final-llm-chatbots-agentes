@@ -37,8 +37,7 @@ from agents.summarizer import summarizer_node_function
 from agents.validator  import validator_node_function, route_tasks_validator
 from agents.finalize   import finalizer_node_function
 
-from utils.config import config
-
+import utils.config as config
 
 def build_graph(llm):
     """

@@ -1,7 +1,7 @@
-from utils.config import config
+import utils.config as config
 from utils.utils import load_prompt
 from langchain_core.messages import AIMessage, ToolMessage
-from langchain_core.output_parsers import StrOutputParser
+
 
 # Import tools assigned to the planner
 from tools.wikipedia import wikipedia_tool
