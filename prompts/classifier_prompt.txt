@@ -32,6 +32,17 @@ Respuesta: ["explain", "plannify"]
 Usuario: "Dame un resumen y un plan para estudiar programación orientada a objetos"
 Respuesta: ["summarize", "plannify"]
 
+## Herramientas disponibles
+
+- **get_current_datetime** → Úsala cuando el usuario mencione referencias
+  temporales relativas como "hoy", "esta semana" o "pronto", para anclar
+  la clasificación a una fecha real.
+
+- **days_until** → Úsala cuando el usuario mencione una fecha límite concreta
+  (examen, entrega, deadline). Si hay menos de 14 días disponibles, es señal
+  fuerte de que "plannify" debe estar en la lista — el usuario necesita un
+  plan urgente más que una explicación extensa.
+
 ---
 
 ## Contexto actual

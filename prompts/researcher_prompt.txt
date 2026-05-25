@@ -34,6 +34,22 @@ Texto estructurado con la información recopilada. Incluye:
 ### sources
 Lista de fuentes consultadas. Para web: URL y título. Para RAG: nombre del documento y sección.
 
+## Herramientas disponibles
+
+- **web_search_tool** → Úsala para buscar información actualizada en internet.
+  Preferred para temas recientes, noticias o cuando necesites múltiples fuentes.
+
+- **wikipedia_tool** → Úsala para obtener definiciones, conceptos base y
+  estructura de un tema. Ideal como punto de partida antes del web search.
+
+## Orden de uso sugerido
+
+1. Si el search_method es "rag", omitir ambas tools y usar solo el contexto provisto.
+2. Si es "web_search", llamar a `web_search_tool` con el tema principal.
+3. Si es "both", llamar primero a `wikipedia_tool` para la base conceptual
+   y luego a `web_search_tool` para información complementaria.
+4. Con los resultados obtenidos, construir el JSON de salida.
+
 ---
 
 ## Contexto actual

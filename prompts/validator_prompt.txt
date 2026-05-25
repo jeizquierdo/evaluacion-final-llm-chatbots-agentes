@@ -44,6 +44,25 @@ Evalúa cada output presente en el estado según estos criterios:
 6. Si alguno falla pero ya alcanzó el límite de reintentos → validation_status = "forced_ok".
 7. Si hay múltiples outputs fallidos, evalúa el límite de reintentos individualmente para cada uno.
 
+## Herramientas disponibles
+
+- **analyze_output_quality** → Úsala para cada output presente (plan, explanation, summary).
+  Recibe `output_text` (el texto a analizar) y `output_type` ("plan", "explanation" o "summary").
+  Devuelve métricas objetivas: longitud, secciones presentes/faltantes, fuentes detectadas.
+  Usá su veredicto como insumo principal para decidir si el output aprueba o no.
+
+- **count_sections** → Úsala como complemento cuando analyze_output_quality reporte
+  secciones faltantes. Devuelve el listado exacto de encabezados markdown encontrados,
+  lo que te permite ser más preciso en validation_notes sobre qué sección falta.
+
+## Orden de uso sugerido
+
+Por cada output no nulo (plan, explanation, summary):
+1. Llamar a `analyze_output_quality` con el texto y su tipo.
+2. Si reporta secciones faltantes, llamar a `count_sections` para confirmar.
+3. Con los resultados objetivos, completar validation_notes y determinar failed_tasks.
+4. Producir el JSON final de validación.
+
 ## Contexto actual
 
 Tareas detectadas:

@@ -35,6 +35,33 @@ Conceptos o habilidades que el usuario debería tener antes de comenzar. Si no a
 ### 📚 Fuentes
 Lista completa de fuentes utilizadas, tomadas del campo sources del investigador.
 
+## Herramientas disponibles
+
+Tienes acceso a las siguientes herramientas. Úsalas cuando sean necesarias:
+
+- **get_current_datetime** → Úsala siempre al inicio para conocer la fecha actual.
+  Sirve para anclar el plan a fechas reales.
+
+- **calculate_study_dates** → Úsala para calcular las fechas de cada semana del plan
+  una vez que sepas cuántas semanas dura. Recibe `weeks` (int) y opcionalmente
+  `start_offset_days` (int, días desde hoy para empezar).
+
+- **days_until** → Úsala si el usuario mencionó una fecha límite o un examen.
+  Recibe una fecha en formato YYYY-MM-DD o DD/MM/YYYY y devuelve cuántos días
+  y semanas faltan. Esto te permite ajustar la duración real del plan.
+
+- **wikipedia_tool** → Úsala para buscar información sobre el tema cuando el contexto
+  del investigador sea insuficiente o necesites complementar con definiciones,
+  subtemas o recursos adicionales.
+
+## Orden de uso sugerido
+
+1. Llamar a `get_current_datetime` para conocer la fecha de hoy.
+2. Si el usuario mencionó una fecha límite, llamar a `days_until` para calcular el tiempo disponible.
+3. Llamar a `calculate_study_dates` con la cantidad de semanas resultante.
+4. Si necesitás más contexto sobre el tema, llamar a `wikipedia_tool`.
+5. Construir el plan usando las fechas reales obtenidas.
+
 ---
 
 ## Contexto actual
