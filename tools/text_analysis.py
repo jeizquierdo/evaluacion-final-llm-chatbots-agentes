@@ -1,4 +1,8 @@
-"""
+"""tools.text_analysis
+
+Objective text-quality analysis helpers exposed as LLM tools. These functions
+provide automated checks (length, section presence, bullet counts) and are
+intended to be called by the `validator` agent to produce measurable verdicts.
 """
 
 import re
@@ -45,7 +49,9 @@ MAX_WORDS = {
 
 @tool
 def analyze_output_quality(output_text: str, output_type: str) -> str:
-    """
+    """Analyze structural and length quality of generated outputs.
+
+    Returns a multi-line Spanish report indicating issues and metrics.
     """
     if output_type not in EXPECTED_SECTIONS:
         return f"Tipo de output no reconocido: '{output_type}'. Usa: plan, explanation, summary."
@@ -116,7 +122,9 @@ Líneas no vacías: {lines}
 
 @tool
 def count_sections(output_text: str) -> str:
-    """
+    """Return a short report of markdown-style headings found in the text.
+
+    Useful to detect missing structural sections expected by the validator.
     """
     headings = re.findall(r"^(#{1,3})\s+(.+)$", output_text, re.MULTILINE)
 

@@ -1,4 +1,13 @@
-"""
+"""tools.datetime
+
+Date/time helper tools used by agents. These functions are exposed as
+callable tools for language models and provide simple utilities to obtain
+the current date/time, compute a study schedule, and count days until a
+target date.
+
+All functions return human-readable strings (the project uses Spanish
+messages in the returns). The functions are lightweight and safe to call
+from LLM tool loops.
 """
 
 from datetime import datetime, timedelta
@@ -8,7 +17,14 @@ from langchain_core.tools import tool
 
 @tool
 def get_current_datetime(format: str = "full") -> str:
-    """
+    """Return the current date/time formatted in one of several styles.
+
+    Args:
+        format: one of "full", "date", or "short" selecting the output
+            format. Defaults to "full".
+
+    Returns:
+        A localized date/time string (Spanish phrasing in this project).
     """
     now = datetime.now()
 
@@ -23,7 +39,14 @@ def get_current_datetime(format: str = "full") -> str:
 
 @tool
 def calculate_study_dates(weeks: int = 4, start_offset_days: int = 0) -> str:
-    """
+    """Generate a simple per-week study schedule.
+
+    Args:
+        weeks: number of weeks to include in the plan (default 4).
+        start_offset_days: days to offset the start date from today (default 0).
+
+    Returns:
+        A multiline string describing the week ranges in Spanish.
     """
     today = datetime.now()
     start = today + timedelta(days=start_offset_days)
@@ -43,7 +66,18 @@ def calculate_study_dates(weeks: int = 4, start_offset_days: int = 0) -> str:
 
 @tool 
 def days_until(target_date_str: str) -> str:
-    """
+    """Compute days (and weeks + days) from today until target date.
+
+    The function accepts target dates in either ISO format (YYYY-MM-DD)
+    or DD/MM/YYYY. Returned messages are in Spanish to match the project's
+    user-facing text.
+
+    Args:
+        target_date_str: date string in YYYY-MM-DD or DD/MM/YYYY.
+
+    Returns:
+        A human-readable Spanish message describing the time until the date
+        or an error message when parsing fails.
     """
     try:
 

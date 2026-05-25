@@ -1,3 +1,10 @@
+"""tools.web_search
+
+Provides a web-search tool abstraction. Uses Tavily when available and
+DuckDuckGo as a fallback. Exposes `web_search_tool` which returns raw
+search results suitable for the researcher agent.
+"""
+
 import os
 from langchain_core.tools import tool
 from langchain_community.tools import DuckDuckGoSearchRun
@@ -11,7 +18,10 @@ except ImportError:
 
 
 def build_web_search_tool():
-    """
+    """Construct and return the configured search engine object.
+
+    Uses TavilySearch when available and configured; otherwise returns the
+    DuckDuckGo search run instance as a safe fallback.
     """
 
     tavily_key = os.getenv("TAVILY_API_KEY", "")
@@ -33,7 +43,9 @@ def build_web_search_tool():
 
 @tool
 def web_search_tool(query: str) -> str:
-    """
+    """Execute a web search query using the selected engine and return text.
+
+    Returns raw engine output or an error string on failure.
     """
     engine = build_web_search_tool()
     try:
