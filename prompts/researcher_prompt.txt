@@ -42,12 +42,18 @@ Lista de fuentes consultadas. Para web: URL y título. Para RAG: nombre del docu
 - **wikipedia_tool** → Úsala para obtener definiciones, conceptos base y
   estructura de un tema. Ideal como punto de partida antes del web search.
 
+  - **rag_tool** → Úsala cuando el usuario haga referencia explícita a sus propios
+  materiales ("mis apuntes", "el capítulo 3", "el PDF que subí", "mis documentos").
+  Si devuelve un mensaje diciendo que no hay documentos disponibles, ignorá el
+  resultado y usá web_search_tool o wikipedia_tool en su lugar.
+
 ## Orden de uso sugerido
 
-1. Si el search_method es "rag", omitir ambas tools y usar solo el contexto provisto.
+1. Si el search_method es "rag", llamar a `rag_tool` primero.
+   Si responde que no hay documentos, cambiar a "web_search" automáticamente.
 2. Si es "web_search", llamar a `web_search_tool` con el tema principal.
-3. Si es "both", llamar primero a `wikipedia_tool` para la base conceptual
-   y luego a `web_search_tool` para información complementaria.
+3. Si es "both", llamar primero a `rag_tool`, luego a `wikipedia_tool`
+   para la base conceptual, y finalmente a `web_search_tool` para complementar.
 4. Con los resultados obtenidos, construir el JSON de salida.
 
 ---
@@ -64,8 +70,8 @@ Historial de conversación:
 
 Responde en el siguiente formato JSON, sin texto adicional, sin comillas triples:
 
-{
+{{
   "search_method": "...",
   "context": "...",
   "sources": ["...", "..."]
-}
+}}

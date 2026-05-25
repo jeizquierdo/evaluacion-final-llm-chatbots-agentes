@@ -89,14 +89,14 @@ Historial de conversación:
 
 Responde únicamente en el siguiente formato JSON, sin texto adicional, sin comillas triples:
 
-{
+{{
   "validation_status": "ok" | "retry" | "forced_ok",
-  "validation_notes": {
+  "validation_notes": {{
     "plannify": "...",
     "explain": "...",
     "summarize": "..."
-  },
+  }},
   "failed_tasks": ["...", "..."]
-}
+}}
 
 Si una tarea no fue ejecutada (su output es null), omite su clave en validation_notes y en failed_tasks.
