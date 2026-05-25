@@ -1,4 +1,11 @@
-# config/settings.py
+"""utils.config
+
+Application configuration utilities. Loads environment variables and exposes
+a `Settings` dataclass with commonly used configuration values (API keys,
+model names, encoding, and limits). A global `settings` instance is created
+from the environment at module import time.
+"""
+
 from dotenv import load_dotenv
 import os
 from dataclasses import dataclass

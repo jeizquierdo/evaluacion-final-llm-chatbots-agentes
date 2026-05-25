@@ -1,3 +1,11 @@
+"""utils.utils
+
+Small utility helpers used by the application to load PromptTemplates and to
+create language model clients (Ollama / Gemini). The functions are thin
+wrappers around the underlying LangChain integrations and centralize encoding
+and configuration handling.
+"""
+
 from utils.config import settings as config
 from typing import Optional
 from pathlib import Path
