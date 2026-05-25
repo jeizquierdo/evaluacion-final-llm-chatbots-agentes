@@ -3,7 +3,7 @@
 
 from datetime import datetime, timedelta
 from langchain_core.tools import tool
-import locale
+
 
 
 @tool
@@ -46,7 +46,7 @@ def days_until(target_date_str: str) -> str:
     """
     """
     try:
-        # Intentar ambos formatos
+
         for fmt in ("%Y-%m-%d", "%d/%m/%Y"):
             try:
                 target = datetime.strptime(target_date_str, fmt)
