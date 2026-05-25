@@ -1,4 +1,4 @@
-import utils.config as config
+from utils.config import settings as config
 from utils.utils import load_prompt
 from langchain_core.messages import AIMessage, ToolMessage
 from langgraph.types import Send
@@ -171,6 +171,8 @@ def validator_node_function(state: dict, llm) -> dict:
     for t in validator_result.get("failed_tasks", []):
         counts[t] = counts.get(t, 0) + 1
 
+    print(f"Validator result:\n{validator_result}\n\n\n\n\n")
+    
     return {
         "validation_status": validator_result["validation_status"],
         "validation_notes":  validator_result["validation_notes"],

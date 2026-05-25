@@ -37,7 +37,6 @@ from agents.summarizer import summarizer_node_function
 from agents.validator  import validator_node_function, route_tasks_validator
 from agents.finalize   import finalizer_node_function
 
-import utils.config as config
 
 def build_graph(llm):
     """
@@ -156,6 +155,11 @@ def build_graph(llm):
     graph.add_conditional_edges(
         "researcher",
         route_tasks_researcher,
+        # {
+        #     "summarize": "summarize",     # add this lines if you want to visualize the compiled graph with mermaid,
+        #     "plannify": "plannify",       # because send objects are not rendered in the mermaid graph   
+        #     "explain": "explain",
+        # }
     )
 
     # Validator → retry loop or finalizer.
@@ -167,7 +171,10 @@ def build_graph(llm):
         "validator",
         route_tasks_validator,
         {
-            "finalize": "finalizer",
+            "finalizer": "finalizer",
+            # "summarize": "summarize",     # add this lines if you want to visualize the compiled graph with mermaid,
+            # "plannify": "plannify",       # because send objects are not rendered in the mermaid graph 
+            # "explain": "explain"
         }
     )
 

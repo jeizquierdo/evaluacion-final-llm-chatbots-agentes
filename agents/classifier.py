@@ -1,4 +1,4 @@
-import utils.config as config
+from utils.config import settings as config
 from utils.utils import load_prompt
 from langchain_core.messages import AIMessage, ToolMessage
 import json
@@ -145,4 +145,5 @@ def classify_node_function(state: dict, llm) -> dict:
     except Exception as e:
         raise RuntimeError(f"classification failed: {str(e)}") from e
 
+    print(f"Classifier detected tasks: {detected_tasks}")
     return {"detected_tasks": detected_tasks}

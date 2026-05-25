@@ -1,4 +1,4 @@
-import utils.config as config
+from utils.config import settings as config
 from utils.utils import load_prompt
 from langchain_core.output_parsers import StrOutputParser
 
@@ -36,11 +36,12 @@ def explainer_node_function(state: dict, llm) -> dict:
             "detected_tasks":   state.get("detected_tasks", []),
             "context":          state.get("context", ""),
             "sources":          state.get("sources", []),
-            "validation_notes": state.get("validation_notes", {}).get("explain", ""),
+            "validation_notes": state.get("validation_notes", {}).get("explain", "") if isinstance(state.get("validation_notes"), dict) else ""
         })
     except Exception as e:
         raise RuntimeError(f"Explanation failed: {str(e)}") from e
 
+    print(f"Explainer output:\n{explainer_result}\n")   
     return {
         "explanation":     explainer_result,
         "completed_tasks": ["explain"],

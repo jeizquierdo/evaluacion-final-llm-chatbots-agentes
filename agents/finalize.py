@@ -1,4 +1,4 @@
-import utils.config as config
+from utils.config import settings as config
 from utils.utils import load_prompt
 from langchain_core.output_parsers import StrOutputParser
 

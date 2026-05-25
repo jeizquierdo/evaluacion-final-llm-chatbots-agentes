@@ -1,4 +1,4 @@
-import utils.config as config
+from utils.config import settings as config
 from utils.utils import load_prompt
 from langchain_core.messages import AIMessage, ToolMessage
 from langgraph.types import Send
@@ -7,9 +7,10 @@ import json
 # Import tools assigned to the researcher
 from tools.web_search import web_search_tool
 from tools.wikipedia import wikipedia_tool
+from tools.rag import rag_tool
 
 # Tools the researcher is allowed to use
-RESEARCHER_TOOLS = [web_search_tool, wikipedia_tool]
+RESEARCHER_TOOLS = [web_search_tool, wikipedia_tool,rag_tool]
 
 # Map tool names to their callables for execution
 TOOL_MAP = {tool.name: tool for tool in RESEARCHER_TOOLS}
@@ -146,6 +147,7 @@ def researcher_node_function(state: dict, llm) -> dict:
     except Exception as e:
         raise RuntimeError(f"Research failed: {str(e)}") from e
 
+    print(f"Researcher result: {researcher_result}")
     return {
         "search_method": researcher_result["search_method"],
         "context":       researcher_result["context"],
