@@ -10,6 +10,7 @@ interpret the validator's JSON verdict safely.
 
 from utils.config import settings as config
 from utils.utils import load_prompt
+from utils.utils import extract_content
 from langchain_core.messages import AIMessage, ToolMessage
 from langgraph.types import Send
 import json
@@ -111,7 +112,7 @@ def _run_tool_loop(chain, inputs: dict, max_iterations: int = 8) -> str:
         })
         conversation_messages.append(response)
 
-    return response.content if hasattr(response, "content") else str(response)
+    return extract_content(response)
 
 
 def _parse_validator_result(raw: str) -> dict:
@@ -181,7 +182,7 @@ def validator_node_function(state: dict, llm) -> dict:
     for t in validator_result.get("failed_tasks", []):
         counts[t] = counts.get(t, 0) + 1
 
-    print(f"Validator result:\n{validator_result}\n\n\n\n\n")
+    
     
     return {
         "validation_status": validator_result["validation_status"],

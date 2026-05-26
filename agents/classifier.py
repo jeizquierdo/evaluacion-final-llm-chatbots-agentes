@@ -11,6 +11,7 @@ responses.
 
 from utils.config import settings as config
 from utils.utils import load_prompt
+from utils.utils import extract_content
 from langchain_core.messages import AIMessage, ToolMessage
 import json
 
@@ -107,7 +108,7 @@ def _run_tool_loop(chain, inputs: dict, max_iterations: int = 5) -> str:
         })
         conversation_messages.append(response)
 
-    return response.content if hasattr(response, "content") else str(response)
+    return extract_content(response)
 
 
 def _parse_classifier_result(raw: str) -> list[str]:
@@ -125,7 +126,6 @@ def _parse_classifier_result(raw: str) -> list[str]:
         # Strip markdown code fences if the model included them
         clean = raw.strip().removeprefix("```json").removeprefix("```").removesuffix("```").strip()
         result = json.loads(clean)
-
         # Validate it's a non-empty list of strings
         if isinstance(result, list) and len(result) > 0:
             return result
@@ -156,5 +156,4 @@ def classify_node_function(state: dict, llm) -> dict:
     except Exception as e:
         raise RuntimeError(f"classification failed: {str(e)}") from e
 
-    print(f"Classifier detected tasks: {detected_tasks}")
     return {"detected_tasks": detected_tasks}

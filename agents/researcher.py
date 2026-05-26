@@ -8,6 +8,7 @@ and parse their JSON outputs safely.
 
 from utils.config import settings as config
 from utils.utils import load_prompt
+from utils.utils import extract_content
 from langchain_core.messages import AIMessage, ToolMessage
 from langgraph.types import Send
 import json
@@ -106,7 +107,7 @@ def _run_tool_loop(chain, inputs: dict, max_iterations: int = 5) -> str:
         })
         conversation_messages.append(response)
 
-    return response.content if hasattr(response, "content") else str(response)
+    return extract_content(response)
 
 
 def _parse_researcher_result(raw: str) -> dict:
@@ -150,12 +151,11 @@ def researcher_node_function(state: dict, llm) -> dict:
                 "messages":       state.get("messages", []),
                 "detected_tasks": state.get("detected_tasks", []),
             },
-        )
+        )       
         researcher_result = _parse_researcher_result(raw_result)
     except Exception as e:
         raise RuntimeError(f"Research failed: {str(e)}") from e
 
-    print(f"Researcher result: {researcher_result}")
     return {
         "search_method": researcher_result["search_method"],
         "context":       researcher_result["context"],

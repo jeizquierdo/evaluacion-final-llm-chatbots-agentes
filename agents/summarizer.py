@@ -48,7 +48,6 @@ def summarizer_node_function(state: dict, llm) -> dict:
     except Exception as e:
         raise RuntimeError(f"Summarization failed: {str(e)}") from e
 
-    print(f"Summarizer output:\n{summarizer_result}\n")
     return {
         "summary": summarizer_result,
         "completed_tasks": ["summarize"],  

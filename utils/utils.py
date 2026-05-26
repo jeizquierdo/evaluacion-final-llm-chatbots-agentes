@@ -49,3 +49,20 @@ def get_llm(model: str ,temperature: Optional[float] = None):
     if model == config.gemini_model:
         return _get_gemini_llm(temperature)
     else: return _get_ollama_llm(temperature)    
+    
+    
+def extract_content(response) -> str:
+    """
+    Extracts plain text from an LLM response.
+    Handles both string content and list-of-blocks format
+    returned by Anthropic and Gemini models.
+    """
+    content = response.content if hasattr(response, "content") else str(response)
+
+    if isinstance(content, list):
+        for block in content:
+            if isinstance(block, dict) and block.get("type") == "text":
+                return block["text"]
+        return str(content)
+
+    return content    

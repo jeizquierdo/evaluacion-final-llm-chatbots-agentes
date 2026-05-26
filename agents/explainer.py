@@ -48,8 +48,7 @@ def explainer_node_function(state: dict, llm) -> dict:
         })
     except Exception as e:
         raise RuntimeError(f"Explanation failed: {str(e)}") from e
-
-    print(f"Explainer output:\n{explainer_result}\n")   
+ 
     return {
         "explanation":     explainer_result,
         "completed_tasks": ["explain"],

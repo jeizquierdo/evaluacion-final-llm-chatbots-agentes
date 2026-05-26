@@ -7,6 +7,7 @@ internal helpers to run tool loops and process tool-invoking LLMs.
 
 from utils.config import settings as config
 from utils.utils import load_prompt
+from utils.utils import extract_content
 from langchain_core.messages import AIMessage, ToolMessage
 
 
@@ -109,7 +110,7 @@ def _run_tool_loop(chain, inputs: dict, max_iterations: int = 5) -> str:
         conversation_messages.append(response)
 
     # Extract plain text from the final AIMessage
-    return response.content if hasattr(response, "content") else str(response)
+    return extract_content(response)
 
 
 def planner_node_function(state: dict, llm) -> dict:
@@ -134,8 +135,6 @@ def planner_node_function(state: dict, llm) -> dict:
         )
     except Exception as e:
         raise RuntimeError(f"Plannification failed: {str(e)}") from e
-
-    print(f"Planner output:\n{planner_result}\n")
 
     return {
         "plan": planner_result,
